@@ -1,0 +1,20 @@
+body {
+    background-color: #f0f0f0;
+}
+
+.container {
+
+    padding: 10px;
+}
+
+ ul li {
+
+    display: inline-flex;
+    list-style: none;    
+}
+
+ul li a {
+    padding: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
