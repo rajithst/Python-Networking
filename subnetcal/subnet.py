@@ -37,22 +37,49 @@ def subnetcal():
             continue
 
 subnetcal()
-typeof = raw_input("Select Type of subnetting\n 1.FLSM\n 2.VLSM\n select number for type\n")
-if int(typeof) == 1:
-    flsmipnum = raw_input("Number of ips for one network: ")
-    flsmipnum = int(flsmipnum)
+
+def subnetmaskcal(flsmipnum):
     numb = math.log(flsmipnum, 2)
     numb = int(numb)
     numberofhosts = numb+1
     numberofnets = 32-numberofhosts
     netportions = numberofnets//8
     hostportions = 4-netportions
-    convertedhost = numberofhosts
-
-    print netportions
-    print hostportions
-
+    value=0
     
+    if (numberofhosts<=8):
+
+        ran = 8-numberofhosts
+        for x in range(1,ran+1):
+            value = value+ 2**(8-x)
+
+    elif (numberofhosts<=16):
+        ran = 16-numberofhosts
+        for x in range(1,ran+1):
+            value = value+ 2**(8-x)
+        value = str(value) + '.0'
+
+    elif(numberofhosts<=24):
+        ran = 24-numberofhosts
+        for x in range(1,ran+1):
+            value = value+ 2**(8-x)
+
+        value = str(value) + '.0.0'
+
+    subnet = '255.'*netportions + str(value)
+    subn = subnet.split('.')
+    return subn
+
+
+typeof = raw_input("Select Type of subnetting\n 1.FLSM\n 2.VLSM\n select number for type\n")
+
+if int(typeof) == 1:
+    flsmipnum = raw_input("Number of ips for one network: ")
+    flsmipnum = int(flsmipnum)
+    resu = subnetmaskcal(flsmipnum)
+    print resu
+
+
 
 if int(typeof)==2:
     networks = raw_input("Number of  network: ")
@@ -64,6 +91,12 @@ if int(typeof)==2:
         iplist.append(ipsforeach)
         ll-=1
         ln+=1
+
+    for x in iplist:
+        x= int(x)
+        resu = subnetmaskcal(x)
+        print resu
+
 
 
 
